@@ -12,7 +12,19 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-model Test {
-  id    Int    @id @default(autoincrement())
-  name  String
+model Cloud {
+  id Int @id @default(autoincrement())
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  media Media[]
+}
+
+model Media {
+  id Int @id @default(autoincrement())
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  name String
+  path String
+  cloud_id Int
+  cloud Cloud @relation(fields: [cloud_id], references: [id])
 }
