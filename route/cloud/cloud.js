@@ -63,4 +63,38 @@ router.get("/", async (req, res) => {
     console.log(error);
   }
 });
+router.get("/:name", async (req, res) => {
+  const { name } = req.params.name;
+  try {
+    const cloud = await prisma.media.findFirst({
+      where: {
+        name: name,
+      },
+    });
+    return res.json(cloud);
+  } catch (error) {
+    console.log(error);
+  }
+});
+router.delete("/:id", async (req, res) => {
+  const { id } = parseInt(req.params.id);
+  try {
+    const cloud = await prisma.media.delete({
+      where: {
+        id: id,
+      },
+    });
+    return res.json(cloud);
+  } catch (error) {
+    console.log(error);
+  }
+});
+router.delete("/", async (req, res) => {
+  try {
+    const cloud = await prisma.media.deleteMany();
+    return res.json(cloud);
+  } catch (error) {
+    console.log(error);
+  }
+});
 export default router;
