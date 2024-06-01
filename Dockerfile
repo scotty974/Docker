@@ -18,8 +18,12 @@ RUN npm i -g prisma
 
 RUN npx prisma init
 
+RUN npm i multer
 # Copy the rest of the source files into the image.
 COPY . .
+
+# Créez le répertoire uploads et définissez les permissions
+RUN mkdir -p /usr/src/app/uploads && chmod -R 777 /usr/src/app/uploads
 
 RUN prisma generate
 
