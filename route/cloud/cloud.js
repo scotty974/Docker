@@ -64,20 +64,23 @@ router.get("/", async (req, res) => {
   }
 });
 router.get("/:name", async (req, res) => {
-  const { name } = req.params.name;
+  const {name} = req.params.name;
   try {
     const cloud = await prisma.media.findFirst({
       where: {
-        name: name,
+        name :  name
       },
     });
+    if(!cloud){
+      return res.status(404).send({ error: "Cloud not found" });
+    }
     return res.json(cloud);
   } catch (error) {
     console.log(error);
   }
 });
 router.delete("/:id", async (req, res) => {
-  const { id } = parseInt(req.params.id);
+  const id = parseInt(req.params.id);
   try {
     const cloud = await prisma.media.delete({
       where: {
