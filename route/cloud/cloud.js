@@ -68,7 +68,9 @@ router.get("/:name", async (req, res) => {
   try {
     const cloud = await prisma.media.findFirst({
       where: {
-        name :  name
+        name : {
+          contains : name
+        }
       },
     });
     if(!cloud){
